@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "predev": "node scripts/photo-manifest.mjs",
+    "prebuild": "node scripts/photo-manifest.mjs"
   },
   "dependencies": {
     "next": "16.3.5",

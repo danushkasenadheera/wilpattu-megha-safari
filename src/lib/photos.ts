@@ -1,16 +1,10 @@
-import fs from "node:fs";
-import path from "node:path";
+import manifest from "./photo-manifest.json";
 import { gallerySamples, photoSlots, sampleUrl } from "./photo-slots";
 
-const dir = path.join(process.cwd(), "public", "images");
 const exts = ["jpg", "jpeg", "webp", "png", "avif"];
 
 function localFiles(): string[] {
-  try {
-    return fs.readdirSync(dir);
-  } catch {
-    return [];
-  }
+  return manifest.files;
 }
 
 export type Photo = { src: string; alt: string };

@@ -1,0 +1,17 @@
+# Free Supabase projects can pause after a period of inactivity. This pings the database twice a week.
+# Add these two repository secrets (GitHub -> Settings -> Secrets and variables -> Actions):
+#   SUPABASE_URL       e.g. https://YOUR-PROJECT.supabase.co
+#   SUPABASE_ANON_KEY  the same anon key used by the site
+name: Keep Supabase awake
+on:
+  schedule:
+    - cron: "0 3 * * 1,4"
+  workflow_dispatch:
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          curl -fsS "${{ secrets.SUPABASE_URL }}/rest/v1/packages?select=id&limit=1" \
+            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}"
